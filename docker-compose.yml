@@ -16,6 +16,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/machine-id:/etc/machine-id:ro
       - /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 312M
 
   prometheus:
     image: prom/prometheus:v2.49.1
@@ -27,6 +32,11 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 312M
 
   grafana:
     image: grafana/grafana:10.3.3
@@ -38,3 +48,8 @@ services:
     depends_on:
       - prometheus
     user: "root:root"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 312M
